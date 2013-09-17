@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace BgTatkoForum
 {
-    public partial class _Default : Page
+    public partial class Threads : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -133,13 +133,13 @@ namespace BgTatkoForum
         protected void SelectCategory_Command(object sender, CommandEventArgs e)
         {
             int categoryId = Convert.ToInt32(e.CommandArgument);
-            Response.Redirect("Default.aspx?categoryId=" + categoryId);
+            Response.Redirect("Threads.aspx?categoryId=" + categoryId);
         }
 
         protected void SelectTag_Command(object sender, CommandEventArgs e)
         {
             int tagId = Convert.ToInt32(e.CommandArgument);
-            Response.Redirect("Default.aspx?tagId=" + tagId);
+            Response.Redirect("Threads.aspx?tagId=" + tagId);
         }
     }
 }

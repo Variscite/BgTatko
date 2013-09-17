@@ -1,6 +1,9 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BgTatkoForum._Default" %>
+﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" 
+    AutoEventWireup="true" CodeBehind="Threads.aspx.cs" 
+    Inherits="BgTatkoForum.Threads" %>
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="BodyContent" runat="server" 
+    ContentPlaceHolderID="MainContent">
     <asp:GridView ID="GridThreads" runat="server"
         ItemType="BgTatkoForum.Models.Thread"
         AutoGenerateColumns="false" AllowPaging="true"

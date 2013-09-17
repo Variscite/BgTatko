@@ -10,7 +10,7 @@
 namespace BgTatkoForum {
 
 
-    public partial class _Default
+    public partial class Threads
     {
         
         /// <summary>
