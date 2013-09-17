@@ -2,9 +2,25 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <asp:ListView runat="server">
-        <LayoutTemplate></LayoutTemplate>
-        <ItemTemplate></ItemTemplate>
+    <asp:ListView ID="ListViewThreads" runat="server"
+        ItemType="BgTatkoForum.Models.Thread">
+        <LayoutTemplate>
+            <ul>
+                <asp:PlaceHolder runat="server"
+                    ID="itemPlaceholder" />
+            </ul>
+        </LayoutTemplate>
+        <ItemTemplate>
+            <li>
+                <div class="votes"><%#: Item.ThreadVotes.Count %></div>
+                <%#: Item.Posts.Count %>
+                <%#: Item.Title %>
+                <%#: Item.Title %>
+            </li>
+        </ItemTemplate>
+        <EmptyDataTemplate>
+            No records found
+        </EmptyDataTemplate>
     </asp:ListView>
 
 </asp:Content>
