@@ -26,5 +26,11 @@ namespace BgTatkoForum
             BgTatkoEntities context = new BgTatkoEntities();
             return context.Categories.Include("Threads").OrderBy(c=> c.CategoryId);
         }
+
+        protected void LinkButtonCategory_Command(object sender, CommandEventArgs e)
+        {
+            int categoryId = Convert.ToInt32(e.CommandArgument);
+            this.Response.Redirect("Default.aspx?categoryId=" + categoryId);
+        }
     }
 }

@@ -35,7 +35,25 @@ namespace BgTatkoForum
         public IQueryable<BgTatkoForum.Models.Thread> GridThreads_GetData()
         {
             BgTatkoEntities context = new BgTatkoEntities();
-            return context.Threads.OrderByDescending(t => t.DateCreated);
+            var threads = context.Threads.AsQueryable();
+
+            if (this.Request.Params["categoryId"] != null)
+            {
+                int categoryId = Convert.ToInt32(this.Request.Params["categoryId"]);
+                threads = threads.Where(t => t.CategoryId == categoryId);
+            }
+
+            if (this.Request.Params["tagId"] != null)
+            {
+                int tagId = Convert.ToInt32(this.Request.Params["tagId"]);
+                threads =
+                    from thr in threads
+                    from tag in thr.Tags
+                    where tag.TagId == tagId
+                    select thr;
+            }
+
+            return threads.OrderByDescending(t => t.DateCreated);
         }
 
         protected void SortByDate_Command(object sender, CommandEventArgs e)
