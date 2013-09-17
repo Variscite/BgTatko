@@ -11,7 +11,7 @@ namespace BgTatkoForum
 {
 
 
-    public partial class About
+    public partial class NewThread
     {
     }
 }

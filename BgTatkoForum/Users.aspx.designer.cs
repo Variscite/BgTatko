@@ -11,7 +11,7 @@ namespace BgTatkoForum
 {
 
 
-    public partial class Contact
+    public partial class Users
     {
     }
 }
