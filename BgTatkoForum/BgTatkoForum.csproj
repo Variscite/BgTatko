@@ -88,6 +88,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Providers">
       <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
@@ -215,6 +217,23 @@
     <Content Include="NewThread.aspx" />
     <Content Include="packages.config" />
     <Content Include="Account\Web.config" />
+    <EntityDeploy Include="Models\BgTatkoModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BgTatkoModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\BgTatkoModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BgTatkoModels.edmx</DependentUpon>
+      <LastGenOutput>BgTatkoModels.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BgTatkoModels.edmx.diagram">
+      <DependentUpon>BgTatkoModels.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\BgTatkoModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BgTatkoModels.edmx</DependentUpon>
+      <LastGenOutput>BgTatkoModels.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -297,6 +316,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Categories.aspx.cs">
       <DependentUpon>Categories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Categories.aspx.designer.cs">
       <DependentUpon>Categories.aspx</DependentUpon>
@@ -311,8 +331,72 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BgTatkoModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BgTatkoModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BgTatkoModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BgTatkoModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BgTatkoModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Post.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PostVote.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tag.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Thread.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThreadVote.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserClaim.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserDetail.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserLogin.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRole.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserSecret.cs">
+      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="NewThread.aspx.cs">
       <DependentUpon>NewThread.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="NewThread.aspx.designer.cs">
       <DependentUpon>NewThread.aspx</DependentUpon>
@@ -328,12 +412,14 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Tags.aspx.cs">
       <DependentUpon>Tags.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Tags.aspx.designer.cs">
       <DependentUpon>Tags.aspx</DependentUpon>
     </Compile>
     <Compile Include="Users.aspx.cs">
       <DependentUpon>Users.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Users.aspx.designer.cs">
       <DependentUpon>Users.aspx</DependentUpon>
@@ -346,7 +432,9 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
