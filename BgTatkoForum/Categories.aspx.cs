@@ -30,7 +30,7 @@ namespace BgTatkoForum
         protected void LinkButtonCategory_Command(object sender, CommandEventArgs e)
         {
             int categoryId = Convert.ToInt32(e.CommandArgument);
-            this.Response.Redirect("Default.aspx?categoryId=" + categoryId);
+            this.Response.Redirect("Threads.aspx?categoryId=" + categoryId);
         }
     }
 }
