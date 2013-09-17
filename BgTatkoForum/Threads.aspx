@@ -1,16 +1,20 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BgTatkoForum._Default" %>
+﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" 
+    AutoEventWireup="true" CodeBehind="Threads.aspx.cs" 
+    Inherits="BgTatkoForum.Threads" %>
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="BodyContent" runat="server" 
+    ContentPlaceHolderID="MainContent">
     <asp:GridView ID="GridThreads" runat="server"
         ItemType="BgTatkoForum.Models.Thread"
         AutoGenerateColumns="false" AllowPaging="true"
         PageSize="3" SelectMethod="GridThreads_GetData"
-        BorderStyle="None">
+        BorderStyle="None" AllowSorting="true">
         <Columns>
             <asp:TemplateField>
                 <HeaderStyle BorderStyle="None" />
                 <HeaderTemplate>
                     <asp:LinkButton Text="By date" runat="server"
+                       
                         OnCommand="SortByDate_Command" />
                     <asp:LinkButton Text="Most votes" runat="server"
                         OnCommand="SortByVotes_Command" />
@@ -41,21 +45,31 @@
                             posts
                         </div>
                         <div class="thread-info">
-                            <asp:LinkButton ID="LinkButtonThread" 
+                            <asp:LinkButton ID="LinkButtonThread"
                                 runat="server"
                                 Text="<%#: Item.Title %>"
                                 CommandArgument="<%#: Item.ThreadId %>"
                                 OnCommand="LinkButtonThread_Command" />
                             <h4></h4>
-                            <p><%#: Item.Category.Name %></p>
-                            <asp:Repeater ID="RepeaterTags" 
+                            <p>
+                                in
+                                <asp:LinkButton runat="server"
+                                    Text="<%#: Item.Category.Name %>"
+                                    CommandArgument="<%# Item.CategoryId %>"
+                                    OnCommand="SelectCategory_Command" />
+                                on the <%#: Item.DateCreated %>
+                            </p>
+                            <asp:Repeater ID="RepeaterTags"
                                 runat="server"
                                 DataSource="<%# Item.Tags %>"
                                 ItemType="BgTatkoForum.Models.Tag">
                                 <ItemTemplate>
-                                    <div class="tags">
-                                        <%#: Item.Name %>
-                                    </div>
+                                    <span class="tags">
+                                        <asp:LinkButton runat="server"
+                                            Text="<%#: Item.Name %>"
+                                            CommandArgument="<%# Item.TagId %>"
+                                            OnCommand="SelectTag_Command" />
+                                    </span>
                                 </ItemTemplate>
                             </asp:Repeater>
                         </div>

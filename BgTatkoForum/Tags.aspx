@@ -6,7 +6,10 @@
         <Columns>
              <asp:TemplateField HeaderText="Most popular tags">
                 <ItemTemplate>
-                     <div><asp:LinkButton Text='<%#: Item.Name %>' runat="server"/> x <%# Item.Threads.Count %></div>
+                     <div><asp:LinkButton ID="LinkButtonTag" Text='<%#: Item.Name %>' runat="server" 
+                         OnCommand="LinkButtonTag_Command"  
+                         CommandArgument="<%# Item.TagId %>" /> 
+                         x <%# Item.Threads.Count %></div>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
