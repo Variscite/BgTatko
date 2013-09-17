@@ -13,12 +13,12 @@ namespace BgTatkoForum {
     public partial class _Default {
         
         /// <summary>
-        /// ListViewThreads control.
+        /// GridThreads control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView ListViewThreads;
+        protected global::System.Web.UI.WebControls.GridView GridThreads;
     }
 }

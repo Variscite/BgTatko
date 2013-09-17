@@ -217,22 +217,22 @@
     <Content Include="NewThread.aspx" />
     <Content Include="packages.config" />
     <Content Include="Account\Web.config" />
-    <EntityDeploy Include="Models\BgTatkoModels.edmx">
+    <EntityDeploy Include="Models\BgTatkoModelss.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BgTatkoModels.Designer.cs</LastGenOutput>
+      <LastGenOutput>BgTatkoModelss.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\BgTatkoModels.Context.tt">
+    <Content Include="Models\BgTatkoModelss.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BgTatkoModels.edmx</DependentUpon>
-      <LastGenOutput>BgTatkoModels.Context.cs</LastGenOutput>
+      <DependentUpon>BgTatkoModelss.edmx</DependentUpon>
+      <LastGenOutput>BgTatkoModelss.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\BgTatkoModels.edmx.diagram">
-      <DependentUpon>BgTatkoModels.edmx</DependentUpon>
+    <Content Include="Models\BgTatkoModelss.edmx.diagram">
+      <DependentUpon>BgTatkoModelss.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\BgTatkoModels.tt">
+    <Content Include="Models\BgTatkoModelss.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BgTatkoModels.edmx</DependentUpon>
-      <LastGenOutput>BgTatkoModels.cs</LastGenOutput>
+      <DependentUpon>BgTatkoModelss.edmx</DependentUpon>
+      <LastGenOutput>BgTatkoModelss.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -332,68 +332,65 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BgTatkoModels.Context.cs">
+    <Compile Include="Models\BgTatkoModelss.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BgTatkoModels.Context.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BgTatkoModels.cs">
+    <Compile Include="Models\BgTatkoModelss.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BgTatkoModels.Designer.cs">
+    <Compile Include="Models\BgTatkoModelss.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BgTatkoModels.edmx</DependentUpon>
+      <DependentUpon>BgTatkoModelss.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Comment.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Post.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PostVote.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tag.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Thread.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ThreadVote.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserClaim.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserDetail.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserLogin.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserRole.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserSecret.cs">
-      <DependentUpon>BgTatkoModels.tt</DependentUpon>
+      <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
     <Compile Include="NewThread.aspx.cs">
       <DependentUpon>NewThread.aspx</DependentUpon>
@@ -451,6 +448,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

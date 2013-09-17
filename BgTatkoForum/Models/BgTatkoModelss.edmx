@@ -4,17 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BgTatkoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="512" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
+      <Schema Namespace="BgTatkoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -45,11 +35,12 @@
         </EntityType>
         <EntityType Name="PostVotes">
           <Key>
-            <PropertyRef Name="PostVoteId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="PostId" />
           </Key>
-          <Property Name="PostVoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="PostId" Type="int" />
+          <Property Name="PostId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -96,9 +87,10 @@
         </EntityType>
         <EntityType Name="ThreadVotes">
           <Key>
-            <PropertyRef Name="ThreadVoteId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ThreadId" />
           </Key>
-          <Property Name="ThreadVoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ThreadId" Type="int" Nullable="false" />
         </EntityType>
@@ -206,7 +198,7 @@ warning 6002: The table/view 'BgTatko.dbo.UserDetails' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PostVotes_Posts">
-          <End Role="Posts" Type="Self.Posts" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
           <End Role="PostVotes" Type="Self.PostVotes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Posts">
@@ -314,7 +306,6 @@ warning 6002: The table/view 'BgTatko.dbo.UserDetails' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BgTatkoModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
@@ -332,14 +323,14 @@ warning 6002: The table/view 'BgTatko.dbo.UserDetails' does not have a primary k
           <EntitySet Name="UserSecrets" EntityType="Self.UserSecrets" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="UserDetails" EntityType="Self.UserDetails" p3:Type="Tables" p3:Schema="dbo" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
-    [UserDetails].[UserId] AS [UserId], 
-    [UserDetails].[Avatar] AS [Avatar], 
-    [UserDetails].[DateRegistered] AS [DateRegistered], 
-    [UserDetails].[About] AS [About], 
-    [UserDetails].[WebSite] AS [WebSite], 
-    [UserDetails].[FirstName] AS [FirstName], 
-    [UserDetails].[LastName] AS [LastName]
-    FROM [dbo].[UserDetails] AS [UserDetails]</DefiningQuery>
+[UserDetails].[UserId] AS [UserId], 
+[UserDetails].[Avatar] AS [Avatar], 
+[UserDetails].[DateRegistered] AS [DateRegistered], 
+[UserDetails].[About] AS [About], 
+[UserDetails].[WebSite] AS [WebSite], 
+[UserDetails].[FirstName] AS [FirstName], 
+[UserDetails].[LastName] AS [LastName]
+FROM [dbo].[UserDetails] AS [UserDetails]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
             <End Role="Posts" EntitySet="Posts" />
@@ -394,28 +385,19 @@ warning 6002: The table/view 'BgTatko.dbo.UserDetails' does not have a primary k
             <End Role="UserDetails" EntitySet="UserDetails" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BgTatkoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
           </Key>
           <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Desription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Threads" Relationship="Self.FK_Threads_Categories" FromRole="Categories" ToRole="Threads" />
-          <Property Name="Desription" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -445,11 +427,12 @@ warning 6002: The table/view 'BgTatko.dbo.UserDetails' does not have a primary k
         </EntityType>
         <EntityType Name="PostVote">
           <Key>
-            <PropertyRef Name="PostVoteId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="PostId" />
           </Key>
-          <Property Name="PostVoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PostId" Type="Int32" />
+          <Property Name="PostId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Post" Relationship="Self.FK_PostVotes_Posts" FromRole="PostVotes" ToRole="Posts" />
           <NavigationProperty Name="User" Relationship="Self.FK_PostVotes_Users" FromRole="PostVotes" ToRole="Users" />
         </EntityType>
@@ -496,9 +479,10 @@ warning 6002: The table/view 'BgTatko.dbo.UserDetails' does not have a primary k
         </EntityType>
         <EntityType Name="ThreadVote">
           <Key>
-            <PropertyRef Name="ThreadVoteId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ThreadId" />
           </Key>
-          <Property Name="ThreadVoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ThreadId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Thread" Relationship="Self.FK_ThreadVotes_Threads" FromRole="ThreadVotes" ToRole="Threads" />
@@ -625,7 +609,7 @@ warning 6002: The table/view 'BgTatko.dbo.UserDetails' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PostVotes_Posts">
-          <End Role="Posts" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Post" Multiplicity="1" />
           <End Role="PostVotes" Type="Self.PostVote" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Posts">
@@ -701,7 +685,6 @@ warning 6002: The table/view 'BgTatko.dbo.UserDetails' does not have a primary k
           <End Role="Threads" Type="Self.Thread" Multiplicity="*" />
         </Association>
         <EntityContainer Name="BgTatkoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Posts" EntityType="Self.Post" />
@@ -772,22 +755,12 @@ warning 6002: The table/view 'BgTatko.dbo.UserDetails' does not have a primary k
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BgTatkoModelStoreContainer" CdmEntityContainer="BgTatkoEntities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="BgTatkoModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="BgTatkoModel.Category">
               <MappingFragment StoreEntitySet="Categories">
-                <ScalarProperty Name="Desription" ColumnName="Desription" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Desription" ColumnName="Desription" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -816,7 +789,7 @@ warning 6002: The table/view 'BgTatko.dbo.UserDetails' does not have a primary k
           <EntitySetMapping Name="PostVotes">
             <EntityTypeMapping TypeName="BgTatkoModel.PostVote">
               <MappingFragment StoreEntitySet="PostVotes">
-                <ScalarProperty Name="PostVoteId" ColumnName="PostVoteId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="PostId" ColumnName="PostId" />
               </MappingFragment>
@@ -864,7 +837,7 @@ warning 6002: The table/view 'BgTatko.dbo.UserDetails' does not have a primary k
           <EntitySetMapping Name="ThreadVotes">
             <EntityTypeMapping TypeName="BgTatkoModel.ThreadVote">
               <MappingFragment StoreEntitySet="ThreadVotes">
-                <ScalarProperty Name="ThreadVoteId" ColumnName="ThreadVoteId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ThreadId" ColumnName="ThreadId" />
               </MappingFragment>

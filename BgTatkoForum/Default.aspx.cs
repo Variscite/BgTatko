@@ -17,16 +17,78 @@ namespace BgTatkoForum
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            BgTatkoEntities context = new BgTatkoEntities();
-            var threads = context.Threads.ToList();
-            this.ListViewThreads.DataSource = threads;
-            this.ListViewThreads.DataBind();
+
         }
 
         protected void LinkButtonThread_Command(object sender, CommandEventArgs e)
         {
             int threadId = Convert.ToInt32(e.CommandArgument);
             Response.Redirect("Thread.aspx?threadId=" + threadId);
+        }
+
+        // The return type can be changed to IEnumerable, however to support
+        // paging and sorting, the following parameters must be added:
+        //     int maximumRows
+        //     int startRowIndex
+        //     out int totalRowCount
+        //     string sortByExpression
+        public IQueryable<BgTatkoForum.Models.Thread> GridThreads_GetData()
+        {
+            BgTatkoEntities context = new BgTatkoEntities();
+            return context.Threads.OrderByDescending(t => t.DateCreated);
+        }
+
+        protected void SortByDate_Command(object sender, CommandEventArgs e)
+        {
+
+        }
+
+        protected void SortByVotes_Command(object sender, CommandEventArgs e)
+        {
+
+        }
+
+        protected void SortByPosts_Command(object sender, CommandEventArgs e)
+        {
+
+        }
+
+        protected void VoteUp_Command(object sender, CommandEventArgs e)
+        {
+            var ids = e.CommandArgument.ToString().Split(',');
+            int threadId = Convert.ToInt32(ids[0]);
+            string userId = ids[1];
+            BgTatkoEntities context = new BgTatkoEntities();
+
+            //TODO: validation
+            context.ThreadVotes.Add(new ThreadVote()
+            {
+                UserId = userId,
+                ThreadId = threadId,
+                Value = 1
+            });
+
+            context.SaveChanges();
+            this.GridThreads.DataBind();
+        }
+
+        protected void VoteDown_Command(object sender, CommandEventArgs e)
+        {
+            var ids = e.CommandArgument.ToString().Split(',');
+            int threadId = Convert.ToInt32(ids[0]);
+            string userId = ids[1];
+            BgTatkoEntities context = new BgTatkoEntities();
+            
+            //TODO: validation
+            context.ThreadVotes.Add(new ThreadVote()
+            {
+                UserId = userId,
+                ThreadId = threadId,
+                Value = -1
+            });
+
+            context.SaveChanges();
+            this.GridThreads.DataBind();
         }
     }
 }

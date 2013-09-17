@@ -13,12 +13,12 @@ namespace BgTatkoForum {
     public partial class Tags {
         
         /// <summary>
-        /// ListViewTags control.
+        /// GridViewTags control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView ListViewTags;
+        protected global::System.Web.UI.WebControls.GridView GridViewTags;
     }
 }
