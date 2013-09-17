@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BgTatkoForum.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,14 @@ namespace BgTatkoForum
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            BgTatkoEntities context = new BgTatkoEntities();
+            var threads = context.Threads.ToList();
+            this.ListViewThreads.DataSource = threads;
+            this.ListViewThreads.DataBind();
         }
     }
 }
