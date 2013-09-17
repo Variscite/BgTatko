@@ -12,10 +12,29 @@
         </LayoutTemplate>
         <ItemTemplate>
             <li>
-                <div class="votes"><%#: Item.ThreadVotes.Count %></div>
-                <%#: Item.Posts.Count %>
-                <%#: Item.Title %>
-                <%#: Item.Title %>
+                <div class="thread-votes">
+                    <%#: Item.ThreadVotes.Count %>
+                </div>
+                <div class="thread-posts">
+                    <%#: Item.Posts.Count %>
+                </div>
+                <div class="thread-info">
+                    <asp:LinkButton ID="LinkButtonThread" runat="server" 
+                        Text="<%#: Item.Title %>" 
+                        CommandArgument="<%#: Item.ThreadId %>" 
+                        OnCommand="LinkButtonThread_Command" />
+                    <h4></h4>
+                    <p><%#: Item.Category.Name %></p>
+                    <asp:Repeater ID="RepeaterTags" runat="server"
+                        ItemType="BgTatkoForum.Models.Tag">
+                        <ItemTemplate>
+                            <div class="tags">
+                                <%#: Item.Name %>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+
+                </div>
             </li>
         </ItemTemplate>
         <EmptyDataTemplate>

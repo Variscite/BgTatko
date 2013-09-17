@@ -22,5 +22,11 @@ namespace BgTatkoForum
             this.ListViewThreads.DataSource = threads;
             this.ListViewThreads.DataBind();
         }
+
+        protected void LinkButtonThread_Command(object sender, CommandEventArgs e)
+        {
+            int threadId = Convert.ToInt32(e.CommandArgument);
+            Response.Redirect("Thread.aspx?threadId=" + threadId);
+        }
     }
 }
