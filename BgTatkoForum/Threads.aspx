@@ -14,6 +14,7 @@
                 <HeaderStyle BorderStyle="None" />
                 <HeaderTemplate>
                     <asp:LinkButton Text="By date" runat="server"
+                       
                         OnCommand="SortByDate_Command" />
                     <asp:LinkButton Text="Most votes" runat="server"
                         OnCommand="SortByVotes_Command" />
