@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BgTatkoForum.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,10 @@ namespace BgTatkoForum
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            BgTatkoEntities context = new BgTatkoEntities();
+            var tags = context.Tags.ToList();
+            this.ListViewTags.DataSource = tags;
+            this.DataBind();
         }
     }
 }
