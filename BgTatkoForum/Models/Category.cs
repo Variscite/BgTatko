@@ -21,6 +21,7 @@ namespace BgTatkoForum.Models
     
         public int CategoryId { get; set; }
         public string Name { get; set; }
+        public string Desription { get; set; }
     
         public virtual ICollection<Thread> Threads { get; set; }
     }
