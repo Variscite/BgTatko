@@ -1,6 +1,7 @@
 ﻿using BgTatkoForum.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -26,6 +27,9 @@ namespace BgTatkoForum
             Response.Redirect("Thread.aspx?threadId=" + threadId);
         }
 
+        private IQueryable<BgTatkoForum.Models.Thread> threads =
+            new BgTatkoEntities().Threads.OrderBy(t => t.DateCreated);
+
         // The return type can be changed to IEnumerable, however to support
         // paging and sorting, the following parameters must be added:
         //     int maximumRows
@@ -34,23 +38,44 @@ namespace BgTatkoForum
         //     string sortByExpression
         public IQueryable<BgTatkoForum.Models.Thread> GridThreads_GetData()
         {
-            BgTatkoEntities context = new BgTatkoEntities();
-            return context.Threads.OrderByDescending(t => t.DateCreated);
+
+            if (this.Request.Params["categoryId"] != null)
+            {
+                int categoryId = Convert.ToInt32(this.Request.Params["categoryId"]);
+                this.threads = this.threads.Where(t => t.CategoryId == categoryId);
+            }
+
+            if (this.Request.Params["tagId"] != null)
+            {
+                int tagId = Convert.ToInt32(this.Request.Params["tagId"]);
+                this.threads = this.threads.Where(t => t.Tags.Any(tg => tg.TagId == tagId));
+                //from thr in this.threads
+                //from tag in thr.Tags
+                //where tag.TagId == tagId
+                //select thr;
+            }
+
+            return this.threads;
         }
 
         protected void SortByDate_Command(object sender, CommandEventArgs e)
         {
-
+            this.threads = this.threads.OrderByDescending(t => t.DateCreated);
+            this.GridThreads.DataBind();
         }
 
         protected void SortByVotes_Command(object sender, CommandEventArgs e)
         {
-
+            this.threads = this.threads
+                .OrderByDescending(t => t.ThreadVotes.Sum(v => v.Value))
+                .ThenByDescending(t => t.DateCreated);
+            this.GridThreads.DataBind();
         }
 
         protected void SortByPosts_Command(object sender, CommandEventArgs e)
         {
-
+            this.threads = this.threads.OrderByDescending(t => t.Posts.Count);
+            this.GridThreads.DataBind();
         }
 
         protected void VoteUp_Command(object sender, CommandEventArgs e)
@@ -60,16 +85,23 @@ namespace BgTatkoForum
             string userId = ids[1];
             BgTatkoEntities context = new BgTatkoEntities();
 
-            //TODO: validation
-            context.ThreadVotes.Add(new ThreadVote()
+            var vote = context.ThreadVotes.FirstOrDefault(v => v.ThreadId == threadId && v.UserId == userId);
+            if (vote == null)
             {
-                UserId = userId,
-                ThreadId = threadId,
-                Value = 1
-            });
-
-            context.SaveChanges();
-            this.GridThreads.DataBind();
+                vote = new ThreadVote()
+                    {
+                        UserId = userId,
+                        ThreadId = threadId,
+                        Value = 1
+                    };
+                context.ThreadVotes.Add(vote);
+                context.SaveChanges();
+                this.GridThreads.DataBind();
+            }
+            else
+            {
+                //throw new Exception();
+            }
         }
 
         protected void VoteDown_Command(object sender, CommandEventArgs e)
@@ -78,17 +110,36 @@ namespace BgTatkoForum
             int threadId = Convert.ToInt32(ids[0]);
             string userId = ids[1];
             BgTatkoEntities context = new BgTatkoEntities();
-            
-            //TODO: validation
-            context.ThreadVotes.Add(new ThreadVote()
-            {
-                UserId = userId,
-                ThreadId = threadId,
-                Value = -1
-            });
 
-            context.SaveChanges();
-            this.GridThreads.DataBind();
+            var vote = context.ThreadVotes.FirstOrDefault(v => v.ThreadId == threadId && v.UserId == userId);
+            if (vote == null)
+            {
+                vote = new ThreadVote()
+                {
+                    UserId = userId,
+                    ThreadId = threadId,
+                    Value = -1
+                };
+                context.ThreadVotes.Add(vote);
+                context.SaveChanges();
+                this.GridThreads.DataBind();
+            }
+            else
+            {
+                //throw new Exception();
+            }
+        }
+
+        protected void SelectCategory_Command(object sender, CommandEventArgs e)
+        {
+            int categoryId = Convert.ToInt32(e.CommandArgument);
+            Response.Redirect("Default.aspx?categoryId=" + categoryId);
+        }
+
+        protected void SelectTag_Command(object sender, CommandEventArgs e)
+        {
+            int tagId = Convert.ToInt32(e.CommandArgument);
+            Response.Redirect("Default.aspx?tagId=" + tagId);
         }
     }
 }

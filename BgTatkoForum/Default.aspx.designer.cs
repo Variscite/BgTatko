@@ -8,9 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace BgTatkoForum {
-    
-    
-    public partial class _Default {
+
+
+    public partial class _Default
+    {
         
         /// <summary>
         /// GridThreads control.
