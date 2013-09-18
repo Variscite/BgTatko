@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BgTatkoForum.Models;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -45,6 +47,13 @@ namespace BgTatkoForum
             }
 
             Page.PreLoad += master_Page_PreLoad;
+
+            var pageUser = this.Page.User;
+            if (pageUser.Identity.IsAuthenticated && 
+                pageUser.IsInRole("Admin"))
+            {
+                this.HyperLinkAdmin.Visible = true;
+            }
         }
 
         protected void master_Page_PreLoad(object sender, EventArgs e)

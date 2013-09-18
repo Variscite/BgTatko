@@ -108,8 +108,9 @@ namespace BgTatkoForum
             BgTatkoEntities context = new BgTatkoEntities();
             var thread = context.Threads.Find(threadId);
 
-            if (thread != null)
+            try
             {
+
                 User user = context.Users.First(u => u.UserName == this.User.Identity.Name);
                 Post post = new Post { Content = content, User = user };
 
@@ -117,11 +118,42 @@ namespace BgTatkoForum
                 context.SaveChanges();
                 Response.Redirect("~/Thread?threadId=" + threadId);
             }
-            else
+            catch (Exception ex)
             {
                 // Report error!
             }
         }
 
+
+        protected void LinkButtonCreateNewComment_Command(object sender, CommandEventArgs e)
+        {
+            this.HiddenFieldSlectedPostId.Value = e.CommandArgument.ToString();
+            this.sectionCreateCommentForPost.Visible = true;
+        }
+
+        protected void LinkButtonSaveComment_Click(object sender, EventArgs e)
+        {
+            var content = this.TextBoxCommentContent.Text;
+            var postId = Convert.ToInt32(this.HiddenFieldSlectedPostId.Value);
+
+            BgTatkoEntities context = new BgTatkoEntities();
+            Post post = context.Posts.Find(postId);
+
+            try
+            {
+
+                User user = context.Users.First(u => u.UserName == this.User.Identity.Name);
+                Comment comment = new Comment { Content = content, DateCreated = DateTime.Now, User = user };
+                post.Comments.Add(comment);
+                context.SaveChanges();
+                Response.Redirect(Request.Url.ToString());
+            }
+            catch (Exception ex)
+            {
+                // Report error!
+            }
+
+
+        }
     }
 }
