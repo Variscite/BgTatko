@@ -40,6 +40,15 @@ namespace BgTatkoForum {
         protected global::System.Web.UI.WebControls.TextBox TextBoxContent;
         
         /// <summary>
+        /// TextBoxTags control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxTags;
+        
+        /// <summary>
         /// LinkButtonSaveThread control.
         /// </summary>
         /// <remarks>
@@ -47,5 +56,14 @@ namespace BgTatkoForum {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonSaveThread;
+        
+        /// <summary>
+        /// RequiredFieldValidatorThreadTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorThreadTitle;
     }
 }

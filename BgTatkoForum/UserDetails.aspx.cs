@@ -13,9 +13,47 @@ namespace BgTatkoForum
         protected void Page_Load(object sender, EventArgs e)
         {
             string id = Request.QueryString["userId"];
-            var user = new BgTatkoEntities().UserDetails.Include("User").Where(use => use.UserId == id).ToList();
-            this.FormViewUserDetails.DataSource = user;
+            var tatko = new BgTatkoEntities().UserDetails.Include("User")
+                            .FirstOrDefault(use => use.UserId == id);
+            UserDisplayModel userDetails = new UserDisplayModel()
+            {
+                FullName = tatko.FirstName + " " + tatko.LastName,
+                Id = tatko.UserId,
+                Member = (DateTime.Now - tatko.DateRegistered).Days,
+                Avatar = tatko.Avatar,
+                DisplayName = tatko.User.UserName,
+                UserDetails = new UserDetail()
+                {
+                    WebSite = tatko.WebSite,
+                    About = tatko.About
+                },
+                User = new User()
+                {
+                    Threads = tatko.User.Threads,
+                    Comments = tatko.User.Comments,
+                    Posts = tatko.User.Posts
+                },
+                Score = (tatko.User.Threads.Count + tatko.User.ThreadVotes.Count) * 10 +
+                        (tatko.User.Posts.Count + tatko.User.PostVotes.Count) * 5 +
+                        (tatko.User.Comments.Count) * 1
+            };
+            this.FormViewUserDetails.DataSource = new List<UserDisplayModel>() { userDetails };
+
+            this.ListViewPosts.DataSource = tatko.User.Posts.ToList();
             this.DataBind();
+        }
+
+        protected void Avatar_PreRender(object sender, EventArgs e)
+        {
+            var image = (Image)sender;
+            var userId = this.Request.Params["userId"];
+            image.ImageUrl = "~/ImageHandler.ashx?userId=" + userId; //new BgTatkoEntities().UserDetails.Include("Users").
+        }
+
+        protected void Thread_Command(object sender, CommandEventArgs e)
+        {
+            int threadId = Convert.ToInt32(e.CommandArgument);
+            Response.Redirect("~/Thread.aspx?threadId=" + threadId);
         }
     }
 }

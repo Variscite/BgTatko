@@ -28,7 +28,7 @@ namespace BgTatkoForum
         }
 
         private IQueryable<BgTatkoForum.Models.Thread> threads =
-            new BgTatkoEntities().Threads.OrderBy(t => t.DateCreated);
+            new BgTatkoEntities().Threads.OrderByDescending(t => t.DateCreated);
 
         // The return type can be changed to IEnumerable, however to support
         // paging and sorting, the following parameters must be added:

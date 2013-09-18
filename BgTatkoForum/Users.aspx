@@ -15,8 +15,8 @@
             <asp:ImageField DataImageUrlField="Id" ItemStyle-CssClass="userImg" DataImageUrlFormatString="~/ImageHandler.ashx?userId={0}"/>
             <asp:HyperLinkField 
                   DataNavigateUrlFields="Id"    
-                  DataTextField="DisplayName"                                 
-                  NavigateUrl="UserDetails.aspx?userId={0}"
+                  DataTextField="DisplayName" 
+                  DataNavigateUrlFormatString="UserDetails.aspx?userId={0}"                               
                   runat="server"/>
             <asp:BoundField DataField="Score"
                 SortExpression="Score" />                

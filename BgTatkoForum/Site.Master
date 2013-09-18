@@ -1,5 +1,8 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="BgTatkoForum.SiteMaster" %>
 
+<%@ Register Src="~/Controls/ErrorSuccessNotifier/ErrorSuccessNotifier.ascx" TagPrefix="notifier" TagName="ErrorSuccessNotifier" %>
+
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -58,11 +61,7 @@
                                 <li><a runat="server" href="~/Categories">Categories</a></li>
                                 <li><a runat="server" href="~/Users">Users</a></li>
                                 <li><a runat="server" href="~/NewThread">New Thread</a></li>
-                                <li>
-                                    <asp:HyperLink ID="HyperLinkAdmin" runat="server"
-                                        Text="Admin"
-                                        Visible="false" NavigateUrl="~/Admin/EditUsers" />
-                                </li>
+                                <li><asp:HyperLink ID="HyperLinkAdmin" Visible="false" runat="server" NavigateUrl="~/Admin/Users">Admin</asp:HyperLink></li>
                             </ul>
                             <asp:LoginView runat="server" ViewStateMode="Disabled">
                                 <AnonymousTemplate>
@@ -86,12 +85,16 @@
             </div>
         </header>
         <div class="container">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
+            <notifier:ErrorSuccessNotifier runat="server" id="ErrorSuccessNotifier" />
+            <div class="page-body">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
             <hr />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
             </footer>
+        
         </div>
     </form>
 </body>
