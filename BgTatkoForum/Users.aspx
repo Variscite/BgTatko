@@ -8,7 +8,8 @@
         AutoGenerateColumns="false" 
         ItemType="BgTatkoForum.Models.UserDetail"         
         ShowHeader="false"
-        DataKeyNames="Avatar, DisplayName, Score, Id" OnSelectedIndexChanged="GridViewUsers_SelectedIndexChanged">
+        DataKeyNames="Avatar, DisplayName, Score, Id" 
+        OnSelectedIndexChanged="GridViewUsers_SelectedIndexChanged">
         
         <Columns>
             <asp:ImageField DataImageUrlField="Id" ItemStyle-CssClass="userImg" DataImageUrlFormatString="~/ImageHandler.ashx?userId={0}"/>
