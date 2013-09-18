@@ -55,5 +55,11 @@ namespace BgTatkoForum
             int threadId = Convert.ToInt32(e.CommandArgument);
             Response.Redirect("~/Thread.aspx?threadId=" + threadId);
         }
+        
+        protected void Thread_Command(object sender, CommandEventArgs e)
+        {
+            int categoryId = Convert.ToInt32(e.CommandArgument);
+            Response.Redirect("~/Thread.aspx?categoryId=" + categoryId);
+        }
     }
 }
