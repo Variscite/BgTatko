@@ -1,4 +1,5 @@
 ﻿using BgTatkoForum.Models;
+using Error_Handler_Control;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,10 +59,9 @@ namespace BgTatkoForum.Admin
                     context.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //TODO
-                throw;
+                ErrorSuccessNotifier.AddErrorMessage(ex);
             }
         }
     }

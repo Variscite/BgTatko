@@ -1,4 +1,5 @@
 ﻿using BgTatkoForum.Models;
+using Error_Handler_Control;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -38,7 +39,6 @@ namespace BgTatkoForum
         //     string sortByExpression
         public IQueryable<BgTatkoForum.Models.Thread> GridThreads_GetData()
         {
-
             if (this.Request.Params["categoryId"] != null)
             {
                 int categoryId = Convert.ToInt32(this.Request.Params["categoryId"]);
@@ -76,31 +76,16 @@ namespace BgTatkoForum
 
         protected void VoteUp_Command(object sender, CommandEventArgs e)
         {
-            var ids = e.CommandArgument.ToString().Split(',');
-            int threadId = Convert.ToInt32(ids[0]);
-            string userId = ids[1];
-            BgTatkoEntities context = new BgTatkoEntities();
-
-            var vote = context.ThreadVotes.FirstOrDefault(v => v.ThreadId == threadId && v.UserId == userId);
-            if (vote == null)
-            {
-                vote = new ThreadVote()
-                    {
-                        UserId = userId,
-                        ThreadId = threadId,
-                        Value = 1
-                    };
-                context.ThreadVotes.Add(vote);
-                context.SaveChanges();
-                this.GridThreads.DataBind();
-            }
-            else
-            {
-                //throw new Exception();
-            }
+            Vote_Command(e, 1);
         }
 
         protected void VoteDown_Command(object sender, CommandEventArgs e)
+        {
+
+            Vote_Command(e, -1);
+        }
+
+        private void Vote_Command(CommandEventArgs e, int value)
         {
             var ids = e.CommandArgument.ToString().Split(',');
             int threadId = Convert.ToInt32(ids[0]);
@@ -114,7 +99,7 @@ namespace BgTatkoForum
                 {
                     UserId = userId,
                     ThreadId = threadId,
-                    Value = -1
+                    Value = value
                 };
                 context.ThreadVotes.Add(vote);
                 context.SaveChanges();
@@ -122,7 +107,7 @@ namespace BgTatkoForum
             }
             else
             {
-                //throw new Exception();
+                ErrorSuccessNotifier.AddInfoMessage("Users can vote once per Thread");
             }
         }
 
