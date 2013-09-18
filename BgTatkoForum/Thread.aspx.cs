@@ -23,17 +23,19 @@ namespace BgTatkoForum
                 if (thread != null)
                 {
                     this.FormViewThread.DataSource = thread;
-                    this.FormViewPosts.DataSource = thread[0].Posts;
+                    var posts = thread[0].Posts;
+                    this.FormViewPosts.DataSource = posts.ToList();
+
                     this.DataBind();
                 }
                 else
                 {
-                    Response.Redirect("~/Default.aspx");
+                    Response.Redirect("~/");
                 }
             }
             else
             {
-                Response.Redirect("~/Default.aspx");
+                Response.Redirect("~/");
             }
         }
 
@@ -44,16 +46,23 @@ namespace BgTatkoForum
             string userId = ids[1];
             BgTatkoEntities context = new BgTatkoEntities();
 
-            //TODO: validation
-            context.ThreadVotes.Add(new ThreadVote()
+            var vote = context.ThreadVotes.FirstOrDefault(v => v.ThreadId == threadId && v.UserId == userId);
+            if (vote == null)
             {
-                UserId = userId,
-                ThreadId = threadId,
-                Value = 1
-            });
-
-            context.SaveChanges();
-            this.FormViewThread.DataBind();
+                vote = new ThreadVote()
+                {
+                    UserId = userId,
+                    ThreadId = threadId,
+                    Value = 1
+                };
+                context.ThreadVotes.Add(vote);
+                context.SaveChanges();
+                this.FormViewThread.DataBind();
+            }
+            else
+            {
+                //throw new Exception();
+            }
         }
 
         protected void VoteDown_Command(object sender, CommandEventArgs e)
@@ -63,16 +72,51 @@ namespace BgTatkoForum
             string userId = ids[1];
             BgTatkoEntities context = new BgTatkoEntities();
 
-            //TODO: validation
-            context.ThreadVotes.Add(new ThreadVote()
+            var vote = context.ThreadVotes.FirstOrDefault(v => v.ThreadId == threadId && v.UserId == userId);
+            if (vote == null)
             {
-                UserId = userId,
-                ThreadId = threadId,
-                Value = -1
-            });
+                vote = new ThreadVote()
+                {
+                    UserId = userId,
+                    ThreadId = threadId,
+                    Value = -1
+                };
+                context.ThreadVotes.Add(vote);
+                context.SaveChanges();
+                this.FormViewThread.DataBind();
+            }
+            else
+            {
+                //throw new Exception();
+            }
+        }
 
-            context.SaveChanges();
-            this.FormViewThread.DataBind();
+        protected void LinkButtonCreateNewPost_Click(object sender, EventArgs e)
+        {
+            this.sectionCreatePost.Visible = true;
+        }
+
+        protected void LinkButtonSavePost_Click(object sender, CommandEventArgs e)
+        {
+            var content = this.TextBoxPostContent.Text;
+            var threadId = Convert.ToInt32(e.CommandArgument.ToString());
+
+            BgTatkoEntities context = new BgTatkoEntities();
+            var thread = context.Threads.Find(threadId);
+
+            if (thread != null)
+            {
+                User user = context.Users.First(u => u.UserName == this.User.Identity.Name);
+                Post post = new Post { Content = content, User = user };
+
+                thread.Posts.Add(post);
+                context.SaveChanges();
+                Response.Redirect("~/Thread?threadId=" + threadId);
+            }
+            else
+            {
+                // Report error!
+            }
         }
 
     }

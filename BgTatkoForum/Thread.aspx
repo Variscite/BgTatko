@@ -26,12 +26,32 @@
             <br />
             <div id="ThreadContent">Content: <%#:Item.Content %></div>
             <br />
-            <h3>Posts</h3>
         </ItemTemplate>
     </asp:FormView>
-    <asp:FormView ID="FormViewPosts" runat="server" ItemType="BgTatkoForum.Models.Post">
+    <asp:LinkButton ID="LinkButtonCreateNewPost" runat="server"
+        Text="Create New Post"
+        OnClick="LinkButtonCreateNewPost_Click" />
+    <section id="sectionCreatePost" runat="server" visible="false">
+        <h3>Fill new post info:</h3>
+        <asp:Label ID="LabelPostContent" Text="Content: " runat="server" AssociatedControlID="TextBoxPostContent" />
+        <asp:TextBox ID="TextBoxPostContent" runat="server" TextMode="MultiLine"/>
+        <asp:RequiredFieldValidator
+            ID="RequiredFieldValidatorContinentName"
+            runat="server"
+            ErrorMessage="Post Content is Required!"
+            ControlToValidate="TextBoxPostContent" />
+        <br />
+        <asp:LinkButton ID="LinkButtonSavePost" runat="server"
+            CommandArgument = <%# Request.Params["threadId"] %>
+            Text="Save" OnCommand="LinkButtonSavePost_Click" />
+        <br />
+        <a href="<%# Request.Url %>">Cancel</a>
+        <asp:Literal ID="LiteralErrorMessage" runat="server" Visible="false" />
+    </section>
+    <h3>Posts</h3>
+    <asp:ListView ID="FormViewPosts" runat="server" ItemType="BgTatkoForum.Models.Post">
         <ItemTemplate>
-            <p>Post:</p>
+            <h4>Post:</h4>
             <div class="post">
                 <p class="post-content">
                     <%#: Item.Content %>
@@ -52,6 +72,5 @@
                 </ItemTemplate>
             </asp:Repeater>
         </ItemTemplate>
-        
-    </asp:FormView>
+    </asp:ListView>
 </asp:Content>
