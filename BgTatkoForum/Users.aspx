@@ -15,7 +15,7 @@
             <asp:HyperLinkField 
                   DataNavigateUrlFields="Id"    
                   DataTextField="DisplayName"                                 
-                  NavigateUrl="UserDetails.aspx?userId={0}"
+                  DataNavigateUrlFormatString="UserDetails.aspx?userId={0}"
                   runat="server"/>
             <asp:BoundField DataField="Score"
                 SortExpression="Score" />                

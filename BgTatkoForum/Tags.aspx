@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Tags.aspx.cs" Inherits="BgTatkoForum.Tags" %>
 <asp:Content ID="ContentTags" ContentPlaceHolderID="MainContent" runat="server">
    <asp:GridView runat="server" ID="GridViewTags" ItemType="BgTatkoForum.Models.Tag" 
-       AutoGenerateColumns="false" PageSize="3" AllowPaging="true" 
+       AutoGenerateColumns="false" PageSize="5" AllowPaging="true" 
        SelectMethod="GridViewTags_GetData">   
         <Columns>
              <asp:TemplateField HeaderText="Most popular tags">
