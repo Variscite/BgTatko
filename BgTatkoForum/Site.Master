@@ -1,5 +1,8 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="BgTatkoForum.SiteMaster" %>
 
+<%@ Register Src="~/Controls/ErrorSuccessNotifier/ErrorSuccessNotifier.ascx" TagPrefix="notifier" TagName="ErrorSuccessNotifier" %>
+
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -82,12 +85,16 @@
             </div>
         </header>
         <div class="container">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
+            <notifier:ErrorSuccessNotifier runat="server" id="ErrorSuccessNotifier" />
+            <div class="page-body">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
             <hr />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
             </footer>
+        
         </div>
     </form>
 </body>
