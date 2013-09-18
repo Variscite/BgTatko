@@ -5,15 +5,15 @@
     <asp:GridView runat="server" ID="GridViewUsers"
         AutoGenerateColumns="false" DataKeyNames="Id"
         AllowPaging="true" UpdateMethod="GridViewUsers_UpdateItem"
-
         PageSize="3" SelectMethod="GridViewUsers_GetData"
         ItemType="BgTatkoForum.Models.User"
         BorderStyle="None" AllowSorting="true">
         <Columns>
-            <asp:BoundField DataField="UserName" HeaderText="User Name"
-                SortExpression="UserName" />
-            <asp:CommandField ShowEditButton="true" 
+            <asp:CommandField ShowEditButton="true"
                 ShowDeleteButton=" true" />
+            <asp:BoundField DataField="UserName"
+                HeaderText="User Name"
+                SortExpression="UserName" />
         </Columns>
     </asp:GridView>
 </asp:Content>
