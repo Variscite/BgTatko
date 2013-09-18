@@ -1,51 +1,58 @@
-﻿<%@ Page Title="" 
-    Language="C#" 
-    MasterPageFile="~/Site.Master" 
-    AutoEventWireup="true" 
-    CodeBehind="UserDetails.aspx.cs" 
+﻿<%@ Page Title=""
+    Language="C#"
+    MasterPageFile="~/Site.Master"
+    AutoEventWireup="true"
+    CodeBehind="UserDetails.aspx.cs"
     Inherits="BgTatkoForum.UserDetails" %>
 
 <asp:Content ID="ContentUserDetails" ContentPlaceHolderID="MainContent" runat="server">
 
-    <asp:FormView ID="FormViewUserDetails" runat="server" 
-        AllowPaging="False"  DataKeyNames="Score"
-        ItemType="BgTatkoForum.Models.UserDetail">
-            <ItemTemplate>
-                <h2>User: <%#: Item.User.UserName %></h2>
-                <hr />
-                <div>
+    <asp:FormView ID="FormViewUserDetails" runat="server"
+        AllowPaging="False" DataKeyNames="FullName, DisplayName"
+        ItemType="BgTatkoForum.Models.UserDisplayModel">
+        <ItemTemplate>
+            <h2>User: <%#: Item.DisplayName %></h2>
+            <hr />
+            <div>
                 <table class="mainUserInfo">
-                     <tr>
+                    <tr>
                         <td></td>
-                        <td><a href="~/UserDetails.aspx?id={<%# Item.UserId %>}" target="_self"><img src="~/ImageHandler.ashx" /></a></td>
+                        <td>
+                            <a href="~/UserDetails.aspx?id={<%# Item.Id %>}" target="_self">
+                                <asp:Image OnPreRender="Avatar_PreRender" runat="server" />
+                            </a>
+
+                        </td>
                     </tr>
                     <tr>
                         <td>Member for:</td>
-                        <td><%#: Item.DateRegistered - DateTime.Now %></td>
+                        <td>
+                            <%#: Item.Member %> days in the forum
+                        </td>
                     </tr>
                     <tr>
                         <td>Full name: :</td>
-                        <td><%#: Item.FirstName + " " + Item.LastName %></td>
+                        <td><%#: Item.FullName %></td>
                     </tr>
                     <tr>
                         <td>Website:</td>
-                        <td><%#: Item.WebSite %></td>
+                        <td><%#: Item.UserDetails.WebSite %></td>
                     </tr>
                     <tr>
                         <td>About user:</td>
-                        <td><%#: Item.About %></td>
+                        <td><%#: Item.UserDetails.About %></td>
                     </tr>
-                    <tr>                       
+                    <tr>
                 </table>
-                </div>
-                
-                <h3>Activity by <%#: Item.User.UserName %></h3>
-                <hr />
-                <div>
+            </div>
+
+            <h3>Activity by <%#: Item.DisplayName %></h3>
+            <hr />
+            <div>
                 <table class="forumUserInfo">
                     <tr>
                         <td>Score:</td>
-                        <td></td>
+                        <td><%#: Item.Score %></td>
                     </tr>
                     <tr>
                         <td>Threads:</td>
@@ -59,10 +66,21 @@
                         <td>Comments:</td>
                         <td><%#: Item.User.Comments.Count %></td>
                     </tr>
-                    <tr>                       
+                    <tr>
                 </table>
-                </div>
-                    <hr />
-            </ItemTemplate>
-        </asp:FormView>
+            </div>
+            <hr />
+        </ItemTemplate>
+    </asp:FormView>
+
+    <asp:ListView ID="ListViewPosts" runat="server"
+        ItemType="BgTatkoForum.Models.Post">
+        <ItemTemplate>
+            <p>
+                <asp:LinkButton Text="<%#: Item.Thread.Title %>" runat="server"
+                    CommandArgument="<%#: Item.Thread.ThreadId %>"
+                    OnCommand="Thread_Command" />
+            </p>
+        </ItemTemplate>
+    </asp:ListView>
 </asp:Content>
