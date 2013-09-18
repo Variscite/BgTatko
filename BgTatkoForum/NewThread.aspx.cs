@@ -70,7 +70,7 @@ namespace BgTatkoForum
 
                 this.Response.Redirect("Thread/Thread?threadId=" + thread.ThreadId);
             }
-            catch (Exception ex)
+            catch (EntityDataSourceValidationException ex)
             {
                 ErrorSuccessNotifier.AddErrorMessage(ex);
             }
