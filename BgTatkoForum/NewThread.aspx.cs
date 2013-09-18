@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BgTatkoForum.Models;
+using Error_Handler_Control;
 
 namespace BgTatkoForum
 {
@@ -28,44 +29,52 @@ namespace BgTatkoForum
 
         protected void LinkButtonSaveThread_Click(object sender, EventArgs e)
         {
-            BgTatkoEntities context = new BgTatkoEntities();
-            BgTatkoForum.Models.Thread thread = new BgTatkoForum.Models.Thread();
-            thread.Content = this.TextBoxContent.Text;
-            thread.Title = this.TextBoxTitle.Text;
-            thread.DateCreated = DateTime.Now;
-            thread.CategoryId = this.DropDownListCategory.SelectedIndex + 1;
-            var user = context.Users.Where(u => u.UserName == this.User.Identity.Name).FirstOrDefault();
-            thread.Category = context.Categories.Find(thread.CategoryId);
-            thread.User = user;
-            thread.UserId = user.Id;
-            context.Threads.Add(thread);
-            user.Threads.Add(thread);
-            context.SaveChanges();
-
-            var titleTokens = this.TextBoxTitle.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            var textBoxTokens = this.TextBoxTags.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            var tokens = textBoxTokens.Union(titleTokens);
-
-            foreach (var token in tokens)
+            try
             {
-                var existingTag = context.Tags.FirstOrDefault(t => t.Name == token.ToLower());
+                BgTatkoEntities context = new BgTatkoEntities();
+                BgTatkoForum.Models.Thread thread = new BgTatkoForum.Models.Thread();
+                thread.Content = this.TextBoxContent.Text;
+                thread.Title = this.TextBoxTitle.Text;
+                thread.DateCreated = DateTime.Now;
+                thread.CategoryId = this.DropDownListCategory.SelectedIndex + 1;
+                var user = context.Users.Where(u => u.UserName == this.User.Identity.Name).FirstOrDefault();
+                thread.Category = context.Categories.Find(thread.CategoryId);
+                thread.User = user;
+                thread.UserId = user.Id;
+                context.Threads.Add(thread);
+                user.Threads.Add(thread);
+                context.SaveChanges();
 
-                if (existingTag != null)
+                var titleTokens = this.TextBoxTitle.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var textBoxTokens = this.TextBoxTags.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var tokens = textBoxTokens.Union(titleTokens);
+
+                foreach (var token in tokens)
                 {
-                    existingTag.Threads.Add(thread);
-                    context.SaveChanges();
+                    var existingTag = context.Tags.FirstOrDefault(t => t.Name == token.ToLower());
+
+                    if (existingTag != null)
+                    {
+                        existingTag.Threads.Add(thread);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        var newTag = new Tag() { Name = token };
+                        context.Tags.Add(newTag);
+                        context.SaveChanges();
+                        newTag.Threads.Add(thread);
+                        context.SaveChanges();
+                    }
                 }
-                else
-                {
-                    var newTag = new Tag() { Name = token };
-                    context.Tags.Add(newTag);
-                    context.SaveChanges();
-                    newTag.Threads.Add(thread);
-                    context.SaveChanges();
-                }
+
+                this.Response.Redirect("Thread/Thread?threadId=" + thread.ThreadId);
             }
-
-            this.Response.Redirect("Thread/Thread?threadId=" + thread.ThreadId);
+            catch (Exception ex)
+            {
+                ErrorSuccessNotifier.AddErrorMessage(ex);
+            }
+            
         }
     }
 }

@@ -10,4 +10,9 @@
     Tags: <asp:TextBox ID="TextBoxTags" runat="server" />
     <br />
     <asp:LinkButton ID="LinkButtonSaveThread" Text="Save" runat="server" OnClick="LinkButtonSaveThread_Click" />
+    <asp:RequiredFieldValidator
+            ID="RequiredFieldValidatorThreadTitle"
+            runat="server"
+            ErrorMessage="Thread Title is Required!"
+            ControlToValidate="TextBoxTitle" />
 </asp:Content>
