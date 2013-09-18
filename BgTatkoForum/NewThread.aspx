@@ -5,7 +5,7 @@
     <br />
     Category: <asp:DropDownList runat="server" ID="DropDownListCategory" ItemType="BgTatkoForum.Models.Category" DataValueField="CategoryId" DataTextField="Name" />
     <br />
-    Content: <asp:TextBox ID="TextBoxContent" runat="server" />
+    Content: <asp:TextBox ID="TextBoxContent" runat="server" TextMode="MultiLine" Rows="10" />
     <br />
     Tags: <asp:TextBox ID="TextBoxTags" runat="server" />
     <br />
