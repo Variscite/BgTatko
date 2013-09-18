@@ -10,15 +10,15 @@
 namespace BgTatkoForum {
     
     
-    public partial class Users {
+    public partial class UserDetails {
         
         /// <summary>
-        /// GridViewUsers control.
+        /// FormViewUserDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewUsers;
+        protected global::System.Web.UI.WebControls.FormView FormViewUserDetails;
     }
 }

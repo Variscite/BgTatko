@@ -30,7 +30,7 @@ namespace BgTatkoForum
         protected void LinkButtonTag_Command(object sender, CommandEventArgs e)
         {
             int tagId = Convert.ToInt32(e.CommandArgument);
-            this.Response.Redirect("Default.aspx?tagId=" + tagId);
+            this.Response.Redirect("Threads.aspx?tagId=" + tagId);
         }
     }
 }
