@@ -93,6 +93,10 @@ namespace BgTatkoForum
 
         protected void LinkButtonCreateNewPost_Click(object sender, EventArgs e)
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                this.Response.Redirect("Account/Login.aspx");
+            }
             this.sectionCreatePost.Visible = true;
         }
 
