@@ -23,9 +23,7 @@ namespace BgTatkoForum
                 this.DropDownListCategory.DataSource = categories;
                 this.DropDownListCategory.SelectedIndex = 0;
                 this.DropDownListCategory.DataBind();
-                
             }
-            
         }
 
         protected void LinkButtonSaveThread_Click(object sender, EventArgs e)
@@ -43,6 +41,30 @@ namespace BgTatkoForum
             context.Threads.Add(thread);
             user.Threads.Add(thread);
             context.SaveChanges();
+
+            var titleTokens = this.TextBoxTitle.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var textBoxTokens = this.TextBoxTags.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var tokens = textBoxTokens.Union(titleTokens);
+
+            foreach (var token in tokens)
+            {
+                var existingTag = context.Tags.FirstOrDefault(t => t.Name == token.ToLower());
+
+                if (existingTag != null)
+                {
+                    existingTag.Threads.Add(thread);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    var newTag = new Tag() { Name = token };
+                    context.Tags.Add(newTag);
+                    context.SaveChanges();
+                    newTag.Threads.Add(thread);
+                    context.SaveChanges();
+                }
+            }
+
             this.Response.Redirect("Thread/Thread?threadId=" + thread.ThreadId);
         }
     }

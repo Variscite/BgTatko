@@ -24,7 +24,7 @@ namespace BgTatkoForum
         public IQueryable<Tag> GridViewTags_GetData()
         {
             BgTatkoEntities context = new BgTatkoEntities();
-            return context.Tags.Include("Threads").OrderBy(t=> t.Threads.Count);
+            return context.Tags.Include("Threads").OrderByDescending(t=> t.Threads.Count);
         }
 
         protected void LinkButtonTag_Command(object sender, CommandEventArgs e)

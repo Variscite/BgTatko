@@ -3,42 +3,74 @@
 <asp:Content ID="ContentCurrentThread" ContentPlaceHolderID="MainContent" runat="server">
     <asp:FormView ID="FormViewThread" runat="server" ItemType="BgTatkoForum.Models.Thread">
         <ItemTemplate>
-            <fieldset id="thread-data">
-                <br />
-                <h2 id="ThreadTitle">Title: <%#:Item.Title %></h2>
-                <br />
-                <div id="ThreadContent">Content: <%#:Item.Content %></div>
-            </fieldset>
+            <div class="thread-votes">
+                <asp:LinkButton runat="server"
+                    Text="<"
+                    CommandArgument="<%# Item.ThreadId.ToString() + ',' + Context.User.Identity.GetUserId() %>"
+                    OnCommand="VoteUp_Command"
+                    CssClass="vote-up" />
+                <asp:LinkButton runat="server"
+                    Text=">"
+                    CommandArgument="<%# Item.ThreadId.ToString() + ',' + Context.User.Identity.GetUserId() %>"
+                    OnCommand="VoteDown_Command"
+                    CssClass="vote-down" />
+                <%#: Item.ThreadVotes.Sum(v => v.Value) %>
+                            votes
+            </div>
+            <div class="thread-posts">
+                <%#: Item.Posts.Count %>
+                            posts
+            </div>
             <br />
-            <h3>Posts</h3>
-            <asp:Repeater
-                ID="RepeaterPosts"
-                runat="server"
-                DataSource="<%# Item.Posts %>"
-                ItemType="BgTatkoForum.Models.Post">
+            <h2 id="ThreadTitle">Title: <%#:Item.Title %></h2>
+            <br />
+            <div id="ThreadContent">Content: <%#:Item.Content %></div>
+            <br />
+        </ItemTemplate>
+    </asp:FormView>
+    <asp:LinkButton ID="LinkButtonCreateNewPost" runat="server"
+        Text="Create New Post"
+        OnClick="LinkButtonCreateNewPost_Click" />
+    <section id="sectionCreatePost" runat="server" visible="false">
+        <h3>Fill new post info:</h3>
+        <asp:Label ID="LabelPostContent" Text="Content: " runat="server" AssociatedControlID="TextBoxPostContent" />
+        <asp:TextBox ID="TextBoxPostContent" runat="server" TextMode="MultiLine"/>
+        <asp:RequiredFieldValidator
+            ID="RequiredFieldValidatorContinentName"
+            runat="server"
+            ErrorMessage="Post Content is Required!"
+            ControlToValidate="TextBoxPostContent" />
+        <br />
+        <asp:LinkButton ID="LinkButtonSavePost" runat="server"
+            CommandArgument = <%# Request.Params["threadId"] %>
+            Text="Save" OnCommand="LinkButtonSavePost_Click" />
+        <br />
+        <a href="<%# Request.Url %>">Cancel</a>
+        <asp:Literal ID="LiteralErrorMessage" runat="server" Visible="false" />
+    </section>
+    <h3>Posts</h3>
+    <asp:ListView ID="FormViewPosts" runat="server" ItemType="BgTatkoForum.Models.Post">
+        <ItemTemplate>
+            <h4>Post:</h4>
+            <div class="post">
+                <p class="post-content">
+                    <%#: Item.Content %>
+                <p class="post-postedBy">
+                    <%#: "Posted By: " + Item.User.UserName %>
+            </div>
+            <asp:Repeater ID="RepeaterPostCommetns" runat="server"
+                DataSource="<%# Item.Comments %>"
+                ItemType="BgTatkoForum.Models.Comment">
                 <ItemTemplate>
-                    <p>Post:</p>
-                    <div class="post">
-                        <p class="post-content">
+                    <p>Comment:</p>
+                    <div class="post-comment">
+                        <p class="post-comment-content">
                             <%#: Item.Content %>
-                        <p class="post-postedBy">
+                        <p class="post-comment-postedBy">
                             <%#: "Posted By: " + Item.User.UserName %>
                     </div>
-                    <asp:Repeater ID="RepeaterPostCommetns" runat="server"
-                        DataSource="<%# Item.Comments %>"
-                        ItemType="BgTatkoForum.Models.Comment">
-                        <ItemTemplate>
-                            <p>Comment:</p>
-                            <div class="post-comment">
-                                <p class="post-comment-content">
-                                    <%#: Item.Content %>
-                                <p class="post-comment-postedBy">
-                                    <%#: "Posted By: " + Item.User.UserName %>
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
                 </ItemTemplate>
             </asp:Repeater>
         </ItemTemplate>
-    </asp:FormView>
+    </asp:ListView>
 </asp:Content>

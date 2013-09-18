@@ -58,6 +58,7 @@
                                 <li><a runat="server" href="~/Categories">Categories</a></li>
                                 <li><a runat="server" href="~/Users">Users</a></li>
                                 <li><a runat="server" href="~/NewThread">New Thread</a></li>
+                                <li><asp:HyperLink ID="HyperLinkAdmin" Visible="false" runat="server" NavigateUrl="~/Admin/Users">Admin</asp:HyperLink></li>
                             </ul>
                             <asp:LoginView runat="server" ViewStateMode="Disabled">
                                 <AnonymousTemplate>
