@@ -49,10 +49,6 @@ namespace BgTatkoForum
             {
                 int tagId = Convert.ToInt32(this.Request.Params["tagId"]);
                 this.threads = this.threads.Where(t => t.Tags.Any(tg => tg.TagId == tagId));
-                //from thr in this.threads
-                //from tag in thr.Tags
-                //where tag.TagId == tagId
-                //select thr;
             }
 
             return this.threads;
