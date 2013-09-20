@@ -12,11 +12,11 @@ namespace BgTatkoForum
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var users = new BgTatkoEntities().Users.Include("UserDetails").Select(user => new
+            var users = new BgTatkoEntities().Users.Include("UserDetail").Select(user => new UserDisplayModel
             {
-                FullName = user.UserDetails.FirstOrDefault().FirstName + " " + user.UserDetails.FirstOrDefault().LastName,
-                Id = user.UserDetails.FirstOrDefault().UserId,
-                Avatar = user.UserDetails.FirstOrDefault().Avatar,
+                FullName = user.UserDetail.FirstName + " " + user.UserDetail.LastName,
+                Id = user.Id,
+                Avatar = user.UserDetail.Avatar,
                 DisplayName = user.UserName,
                 Score = (user.Threads.Count + user.ThreadVotes.Count) * 10 +
                         (user.Posts.Count + user.PostVotes.Count) * 5 +

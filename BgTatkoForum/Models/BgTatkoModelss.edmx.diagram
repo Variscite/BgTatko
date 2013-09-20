@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a8ef51b2ed1143768efe888d3e3c16f7" Name="Diagram1">
+      <Diagram DiagramId="ba030591837b4d82ad30495db68a7372" Name="Diagram1">
         <EntityTypeShape EntityType="BgTatkoModel.Category" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="BgTatkoModel.Comment" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
         <EntityTypeShape EntityType="BgTatkoModel.Post" Width="1.5" PointX="6" PointY="7.875" IsExpanded="true" />
@@ -15,11 +15,11 @@
         <EntityTypeShape EntityType="BgTatkoModel.Thread" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BgTatkoModel.ThreadVote" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="BgTatkoModel.UserClaim" Width="1.5" PointX="7.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BgTatkoModel.UserDetail" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BgTatkoModel.UserLogin" Width="1.5" PointX="9.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BgTatkoModel.UserRole" Width="1.5" PointX="9.75" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BgTatkoModel.User" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="BgTatkoModel.UserSecret" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BgTatkoModel.UserDetail" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
         <AssociationConnector Association="BgTatkoModel.FK_Threads_Categories" ManuallyRouted="false" />
         <AssociationConnector Association="BgTatkoModel.FK_Comments_Posts" ManuallyRouted="false" />
         <AssociationConnector Association="BgTatkoModel.FK_Comments_Users" ManuallyRouted="false" />
@@ -30,7 +30,7 @@
         <AssociationConnector Association="BgTatkoModel.FK_Threads_Users" ManuallyRouted="false" />
         <AssociationConnector Association="BgTatkoModel.FK_ThreadVotes_Threads" ManuallyRouted="false" />
         <AssociationConnector Association="BgTatkoModel.FK_ThreadVotes_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="BgTatkoModel.FK_UserDetails_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="BgTatkoModel.FK_UserDetails_Users1" ManuallyRouted="false" />
         <AssociationConnector Association="BgTatkoModel.ThreadsTags" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

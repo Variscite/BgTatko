@@ -21,7 +21,6 @@ namespace BgTatkoForum.Models
             this.PostVotes = new HashSet<PostVote>();
             this.Threads = new HashSet<Thread>();
             this.ThreadVotes = new HashSet<ThreadVote>();
-            this.UserDetails = new HashSet<UserDetail>();
         }
     
         public string Id { get; set; }
@@ -32,6 +31,6 @@ namespace BgTatkoForum.Models
         public virtual ICollection<PostVote> PostVotes { get; set; }
         public virtual ICollection<Thread> Threads { get; set; }
         public virtual ICollection<ThreadVote> ThreadVotes { get; set; }
-        public virtual ICollection<UserDetail> UserDetails { get; set; }
+        public virtual UserDetail UserDetail { get; set; }
     }
 }

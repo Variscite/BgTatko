@@ -35,10 +35,10 @@ namespace BgTatkoForum.Models
         public DbSet<Thread> Threads { get; set; }
         public DbSet<ThreadVote> ThreadVotes { get; set; }
         public DbSet<UserClaim> UserClaims { get; set; }
+        public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<UserLogin> UserLogins { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserSecret> UserSecrets { get; set; }
-        public DbSet<UserDetail> UserDetails { get; set; }
     }
 }

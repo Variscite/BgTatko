@@ -228,6 +228,8 @@
     <Content Include="NewThread.aspx" />
     <Content Include="packages.config" />
     <Content Include="Account\Web.config" />
+    <Content Include="ImageHandler.ashx" />
+    <Content Include="Admin\Web.config" />
     <EntityDeploy Include="Models\BgTatkoModelss.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BgTatkoModelss.Designer.cs</LastGenOutput>
@@ -245,8 +247,6 @@
       <DependentUpon>BgTatkoModelss.edmx</DependentUpon>
       <LastGenOutput>BgTatkoModelss.cs</LastGenOutput>
     </Content>
-    <Content Include="ImageHandler.ashx" />
-    <Content Include="Admin\Web.config" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -357,20 +357,6 @@
     <Compile Include="Controls\ErrorSuccessNotifier\ErrorSuccessNotifier.ascx.designer.cs">
       <DependentUpon>ErrorSuccessNotifier.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserDisplayModel.cs" />
-    <Compile Include="Threads.aspx.cs">
-      <DependentUpon>Threads.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Threads.aspx.designer.cs">
-      <DependentUpon>Threads.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="ImageHandler.ashx.cs">
-      <DependentUpon>ImageHandler.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Models\BgTatkoModelss.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -422,6 +408,7 @@
     <Compile Include="Models\UserDetail.cs">
       <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserDisplayModel.cs" />
     <Compile Include="Models\UserLogin.cs">
       <DependentUpon>BgTatkoModelss.tt</DependentUpon>
     </Compile>
@@ -430,6 +417,19 @@
     </Compile>
     <Compile Include="Models\UserSecret.cs">
       <DependentUpon>BgTatkoModelss.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Threads.aspx.cs">
+      <DependentUpon>Threads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Threads.aspx.designer.cs">
+      <DependentUpon>Threads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ImageHandler.ashx.cs">
+      <DependentUpon>ImageHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="NewThread.aspx.cs">
       <DependentUpon>NewThread.aspx</DependentUpon>

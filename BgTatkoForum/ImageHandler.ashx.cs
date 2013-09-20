@@ -31,12 +31,13 @@ namespace BgTatkoForum
         private Byte[] RetrieveCountryImage(string userId, HttpContext context)
         {
             BgTatkoEntities db = new BgTatkoEntities();
-            var user = db.UserDetails.FirstOrDefault(use => use.UserId == userId);
+            var user = db.Users.FirstOrDefault(use => use.Id == userId);
             if (user != null)
             {
-                if (user.Avatar != null)
+                if (user.UserDetail != null &&
+                    user.UserDetail.Avatar != null)
                 {
-                    return user.Avatar;
+                    return user.UserDetail.Avatar;
                 }
                 else
                 {

@@ -6,7 +6,7 @@
     <asp:GridView runat="server"
         ID="GridViewUsers" CssClass="table table-hover"
         AutoGenerateColumns="false"
-        ItemType="BgTatkoForum.Models.UserDetail"
+        ItemType="BgTatkoForum.Models.UserDisplayModel"
         ShowHeader="false"
         DataKeyNames="Avatar, DisplayName, Score, Id"
         OnSelectedIndexChanged="GridViewUsers_SelectedIndexChanged">
