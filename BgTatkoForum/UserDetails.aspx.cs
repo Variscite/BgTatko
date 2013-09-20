@@ -13,33 +13,46 @@ namespace BgTatkoForum
         protected void Page_Load(object sender, EventArgs e)
         {
             string id = Request.QueryString["userId"];
-            var tatko = new BgTatkoEntities().UserDetails.Include("User")
-                            .FirstOrDefault(use => use.UserId == id);
+            var tatko = new BgTatkoEntities().Users.Include("UserDetail")
+                            .FirstOrDefault(use => use.Id == id);
             UserDisplayModel userDetails = new UserDisplayModel()
             {
-                FullName = tatko.FirstName + " " + tatko.LastName,
-                Id = tatko.UserId,
-                Member = (DateTime.Now - tatko.DateRegistered).Days,
-                Avatar = tatko.Avatar,
-                DisplayName = tatko.User.UserName,
-                UserDetails = new UserDetail()
-                {
-                    WebSite = tatko.WebSite,
-                    About = tatko.About
-                },
+                Id = tatko.Id,
+                DisplayName = tatko.UserName,
+                FullName = "(none)",
+                Member = 0,
                 User = new User()
                 {
-                    Threads = tatko.User.Threads,
-                    Comments = tatko.User.Comments,
-                    Posts = tatko.User.Posts
+                    Threads = tatko.Threads,
+                    Comments = tatko.Comments,
+                    Posts = tatko.Posts
                 },
-                Score = (tatko.User.Threads.Count + tatko.User.ThreadVotes.Count) * 10 +
-                        (tatko.User.Posts.Count + tatko.User.PostVotes.Count) * 5 +
-                        (tatko.User.Comments.Count) * 1
+                Avatar = null,
+                UserDetails = new UserDetail()
+                {
+                    WebSite = "(none)",
+                    About = "(none)"
+                },
+                Score = (tatko.Threads.Count + tatko.ThreadVotes.Count) * 10 +
+                        (tatko.Posts.Count + tatko.PostVotes.Count) * 5 +
+                        (tatko.Comments.Count) * 1
             };
+
+            if (tatko.UserDetail != null)
+            {
+                userDetails.FullName = tatko.UserDetail.FirstName + " " + tatko.UserDetail.LastName;
+                userDetails.Member = (DateTime.Now - tatko.UserDetail.DateRegistered).Days;
+                userDetails.Avatar = tatko.UserDetail.Avatar;
+                userDetails.UserDetails = new UserDetail()
+                {
+                    WebSite = tatko.UserDetail.WebSite,
+                    About = tatko.UserDetail.About
+                };
+            }
+
             this.FormViewUserDetails.DataSource = new List<UserDisplayModel>() { userDetails };
 
-            this.ListViewPosts.DataSource = tatko.User.Posts.ToList();
+            this.ListViewPosts.DataSource = tatko.Posts.ToList();
             this.DataBind();
         }
 
