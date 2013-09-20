@@ -112,7 +112,7 @@ namespace BgTatkoForum
             }
             catch (Exception ex)
             {
-                // Report error!
+                ErrorSuccessNotifier.AddErrorMessage(ex);
             }
         }
 
@@ -142,10 +142,8 @@ namespace BgTatkoForum
             }
             catch (Exception ex)
             {
-                // Report error!
+                ErrorSuccessNotifier.AddErrorMessage(ex);
             }
-
-
         }
     }
 }

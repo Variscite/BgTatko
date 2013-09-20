@@ -13,6 +13,15 @@ namespace BgTatkoForum {
     public partial class Categories {
         
         /// <summary>
+        /// UpdatePanelComments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanelComments;
+        
+        /// <summary>
         /// GridViewCategories control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace BgTatkoForum {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewCategories;
+        
+        /// <summary>
+        /// TimerComments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.Timer TimerComments;
     }
 }

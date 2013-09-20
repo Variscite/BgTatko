@@ -46,7 +46,7 @@ namespace BgTatkoForum
                 context.SaveChanges();
 
                 var titleTokens = this.TextBoxTitle.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var textBoxTokens = this.TextBoxTags.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var textBoxTokens = this.TextBoxTags.Text.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
                 var tokens = textBoxTokens.Union(titleTokens);
 
                 foreach (var token in tokens)
@@ -60,7 +60,7 @@ namespace BgTatkoForum
                     }
                     else
                     {
-                        var newTag = new Tag() { Name = token };
+                        var newTag = new Tag() { Name = token.ToLower() };
                         context.Tags.Add(newTag);
                         context.SaveChanges();
                         newTag.Threads.Add(thread);

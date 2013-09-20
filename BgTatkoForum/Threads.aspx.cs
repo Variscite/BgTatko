@@ -86,7 +86,6 @@ namespace BgTatkoForum
 
         protected void VoteDown_Command(object sender, CommandEventArgs e)
         {
-
             Vote_Command(e, -1);
         }
 

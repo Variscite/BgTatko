@@ -12,25 +12,24 @@ namespace BgTatkoForum
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
         }
 
-        // The return type can be changed to IEnumerable, however to support
-        // paging and sorting, the following parameters must be added:
-        //     int maximumRows
-        //     int startRowIndex
-        //     out int totalRowCount
-        //     string sortByExpression
         public IQueryable<Tag> GridViewTags_GetData()
         {
             BgTatkoEntities context = new BgTatkoEntities();
-            return context.Tags.Include("Threads").OrderByDescending(t=> t.Threads.Count);
+            return context.Tags.Include("Threads").OrderByDescending(t => t.Threads.Count);
         }
 
         protected void LinkButtonTag_Command(object sender, CommandEventArgs e)
         {
             int tagId = Convert.ToInt32(e.CommandArgument);
             this.Response.Redirect("Threads.aspx?tagId=" + tagId);
+        }
+
+        protected void TimerComments_Tick(object sender, EventArgs e)
+        {
+            this.GridViewTags.DataBind();
         }
     }
 }

@@ -8,10 +8,9 @@
 //------------------------------------------------------------------------------
 
 namespace BgTatkoForum {
-
-
-    public partial class Threads
-    {
+    
+    
+    public partial class Threads {
         
         /// <summary>
         /// GridThreads control.

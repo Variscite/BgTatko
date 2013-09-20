@@ -32,5 +32,10 @@ namespace BgTatkoForum
             int categoryId = Convert.ToInt32(e.CommandArgument);
             this.Response.Redirect("Threads.aspx?categoryId=" + categoryId);
         }
+
+        protected void TimerComments_Tick(object sender, EventArgs e)
+        {
+            this.GridViewCategories.DataBind();
+        }
     }
 }

@@ -34,7 +34,7 @@
             <div class="thread-info">
                 <h2 id="ThreadTitle">Title: <%#:Item.Title %></h2>
             </div>
-            <div id="ThreadContent" class="lead"> <%#:Item.Content %></div>
+            <div id="ThreadContent" class="lead"><%#:Item.Content %></div>
             <br />
         </ItemTemplate>
     </asp:FormView>
@@ -60,6 +60,7 @@
         </div>
         <asp:Literal ID="LiteralErrorMessage" runat="server" Visible="false" />
     </section>
+
     <section id="sectionCreateCommentForPost" runat="server" visible="false">
         <h3>Fill new comment info:</h3>
         <asp:HiddenField ID="HiddenFieldSlectedPostId" runat="server" />
