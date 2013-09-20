@@ -148,6 +148,7 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Admin\EditThreads.aspx" />
     <Content Include="Admin\EditUsers.aspx" />
     <Content Include="App_Data\BgTatko.mdf" />
     <Content Include="App_Data\BgTatko_log.ldf">
@@ -323,6 +324,13 @@
     </Compile>
     <Compile Include="Account\RegisterExternalLogin.aspx.designer.cs">
       <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditThreads.aspx.cs">
+      <DependentUpon>EditThreads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditThreads.aspx.designer.cs">
+      <DependentUpon>EditThreads.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\EditUsers.aspx.cs">
       <DependentUpon>EditUsers.aspx</DependentUpon>

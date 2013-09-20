@@ -64,5 +64,34 @@ namespace BgTatkoForum.Admin
                 ErrorSuccessNotifier.AddErrorMessage(ex);
             }
         }
+
+        // The id parameter name should match the DataKeyNames value set on the control
+        public void GridViewUsers_DeleteItem(int id)
+        {
+            try
+            {
+                BgTatkoEntities context = new BgTatkoEntities();
+                BgTatkoForum.Models.User item = context.Users.Find(id);
+                // Load the item here, e.g. item = MyDataLayer.Find(id);
+                if (item == null)
+                {
+                    // The item wasn't found
+                    ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
+                    return;
+                }
+                TryUpdateModel(item);
+                if (ModelState.IsValid)
+                {
+                    // Save changes here, e.g. MyDataLayer.SaveChanges();
+                    context.Users.Remove(item);
+                    
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorSuccessNotifier.AddErrorMessage(ex);
+            }
+        }
     }
 }
