@@ -16,30 +16,30 @@
             <div>
                 <table class="mainUserInfo">
                     <tr>
-                        <td></td>
+                        <td class="leftTd"></td>
                         <td>
-                            <a href="~/UserDetails.aspx?id={<%# Item.Id %>}" target="_self">
+                            <a href="UserDetails.aspx?userId=<%# Item.Id %>" target="_self">
                                 <asp:Image OnPreRender="Avatar_PreRender" runat="server" />
                             </a>
 
                         </td>
                     </tr>
                     <tr>
-                        <td>Member for:</td>
+                        <td class="leftTd">Member for:</td>
                         <td>
                             <%#: Item.Member %> days in the forum
                         </td>
                     </tr>
                     <tr>
-                        <td>Full name: :</td>
+                        <td class="leftTd">Full name: :</td>
                         <td><%#: Item.FullName %></td>
                     </tr>
                     <tr>
-                        <td>Website:</td>
+                       <td class="leftTd">Website:</td>
                         <td><%#: Item.UserDetails.WebSite %></td>
                     </tr>
                     <tr>
-                        <td>About user:</td>
+                        <td class="leftTd">About user:</td>
                         <td><%#: Item.UserDetails.About %></td>
                     </tr>
                     <tr>
@@ -77,9 +77,12 @@
         ItemType="BgTatkoForum.Models.Post">
         <ItemTemplate>
             <p>
-                <asp:LinkButton Text="<%#: Item.Thread.Title %>" runat="server"
+                <span>Thread: <asp:LinkButton Text="<%#: Item.Thread.Title %>" runat="server"
                     CommandArgument="<%#: Item.Thread.ThreadId %>"
-                    OnCommand="Thread_Command" />
+                    OnCommand="Thread_Command" /></span>
+                <span>Posted in category: <asp:LinkButton Text="<%#: Item.Thread.Category.Name %>" runat="server"
+                    CommandArgument="<%#: Item.Thread.CategoryId %>"
+                    OnCommand="Category_Command" /></span>
             </p>
         </ItemTemplate>
     </asp:ListView>

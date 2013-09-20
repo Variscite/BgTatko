@@ -68,7 +68,7 @@ namespace BgTatkoForum
                     }
                 }
 
-                this.Response.Redirect("Thread/Thread?threadId=" + thread.ThreadId);
+                this.Response.Redirect("Thread/Thread?threadId=" + thread.ThreadId, false);
             }
             catch (Exception ex)
             {

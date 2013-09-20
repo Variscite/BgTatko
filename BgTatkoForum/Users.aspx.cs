@@ -29,6 +29,11 @@ namespace BgTatkoForum
                 this.DataBind();
             }
         }
+
+        protected void GridViewUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
         /*
         public IQueryable<UserDetail> GridViewUsers_GetData()
         {
@@ -47,10 +52,7 @@ namespace BgTatkoForum
             return (IQueryable<UserDetail>)(users.OrderBy(us => us.Score));
         }
         */
-        protected void GridViewUsers_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
 
     }
 }
