@@ -26,18 +26,22 @@
                 <ItemTemplate>
                     <div>
                         <div class="thread-votes">
-                            <asp:LinkButton runat="server"
-                                Text="<"
-                                CommandArgument="<%# Item.ThreadId.ToString() + ',' + Context.User.Identity.GetUserId() %>"
-                                OnCommand="VoteUp_Command"
-                                CssClass="vote-up" />
-                            <asp:LinkButton runat="server"
-                                Text=">"
-                                CommandArgument="<%# Item.ThreadId.ToString() + ',' + Context.User.Identity.GetUserId() %>"
-                                OnCommand="VoteDown_Command"
-                                CssClass="vote-down" />
-                            <%#: Item.ThreadVotes.Sum(v => v.Value) %>
-                            votes
+                            <span class="vote-action">
+                                <asp:LinkButton runat="server"
+                                    CommandArgument="<%# Item.ThreadId.ToString() + ',' + Context.User.Identity.GetUserId() %>"
+                                    OnCommand="VoteUp_Command"
+                                    CssClass="vote vote-up" />
+                                <asp:LinkButton runat="server"
+                                    CommandArgument="<%# Item.ThreadId.ToString() + ',' + Context.User.Identity.GetUserId() %>"
+                                    OnCommand="VoteDown_Command"
+                                    CssClass="vote vote-down" />
+                            </span>
+                            <div class="votes-results">
+                                <div class="value">
+                                    <%#:Item.ThreadVotes.Sum(v => v.Value)%>
+                                </div>
+                                <div>votes</div>
+                            </div>
                         </div>
                         <div class="thread-posts">
                             <%#: Item.Posts.Count %>

@@ -24,8 +24,18 @@ namespace BgTatkoForum.Admin
 
         }
 
-        private IQueryable<BgTatkoForum.Models.User> threads =
-            new BgTatkoEntities().Users.Include("UserDetails").OrderBy(u => u.UserName);
+        private IQueryable<User> threads = GetUsersData();
+
+        private static IQueryable<User> GetUsersData()
+        {
+            var context = new BgTatkoEntities();
+            var users = context.Users;
+            var usersDetails = context.UserDetails;
+            var usersRols = context.UserRoles;
+
+
+            return users;
+        }
 
         // The return type can be changed to IEnumerable, however to support
         // paging and sorting, the following parameters must be added:
@@ -44,7 +54,7 @@ namespace BgTatkoForum.Admin
             try
             {
                 BgTatkoEntities context = new BgTatkoEntities();
-                BgTatkoForum.Models.User item = context.Users.Find(id);
+                User item = context.Users.Find(id);
                 // Load the item here, e.g. item = MyDataLayer.Find(id);
                 if (item == null)
                 {
@@ -62,6 +72,44 @@ namespace BgTatkoForum.Admin
             catch (Exception ex)
             {
                 ErrorSuccessNotifier.AddErrorMessage(ex);
+            }
+        }
+
+        // The id parameter name should match the DataKeyNames value set on the control
+        public void GridViewUsers_DeleteItem(string id)
+        {
+            BgTatkoEntities context = new BgTatkoEntities();
+            User item = context.Users.Find(id);
+            context.Users.Remove(item);
+            context.SaveChanges();
+        }
+        // The return type can be changed to IEnumerable, however to support
+        // paging and sorting, the following parameters must be added:
+        //     int maximumRows
+        //     int startRowIndex
+        //     out int totalRowCount
+        //     string sortByExpression
+        public IQueryable<BgTatkoForum.Models.User> GridViewUserDetails_GetData()
+        {
+            return null;
+        }
+
+        // The id parameter name should match the DataKeyNames value set on the control
+        public void GridViewUserDetails_UpdateItem(int id)
+        {
+            BgTatkoForum.Models.User item = null;
+            // Load the item here, e.g. item = MyDataLayer.Find(id);
+            if (item == null)
+            {
+                // The item wasn't found
+                ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
+                return;
+            }
+            TryUpdateModel(item);
+            if (ModelState.IsValid)
+            {
+                // Save changes here, e.g. MyDataLayer.SaveChanges();
+
             }
         }
     }

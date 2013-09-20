@@ -16,10 +16,9 @@ namespace BgTatkoForum
         public void ProcessRequest(HttpContext context)
         {
             string userId = context.Request.QueryString["userId"];
-
             if (!string.IsNullOrEmpty(userId))
             {
-                var result = RetrieveCountryImage(userId, context);
+                Byte[] result = RetrieveCountryImage(userId, context);
                 if (result != null)
                 {
                     context.Response.BinaryWrite(result);
@@ -43,9 +42,7 @@ namespace BgTatkoForum
                 {
                     return File.ReadAllBytes(context.Server.MapPath("~/img/default.png"));
                 }
-
             }
-
             return null;
         }
 

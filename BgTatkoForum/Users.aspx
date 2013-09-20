@@ -12,7 +12,9 @@
         OnSelectedIndexChanged="GridViewUsers_SelectedIndexChanged">
         
         <Columns>
-            <asp:ImageField DataImageUrlField="Id" ItemStyle-CssClass="userImg" DataImageUrlFormatString="~/ImageHandler.ashx?userId={0}"/>
+            <asp:ImageField DataImageUrlField="Id" 
+                DataImageUrlFormatString="~/ImageHandler.ashx?userId={0}" 
+                ItemStyle-CssClass="userImg"/>
             <asp:HyperLinkField 
                   DataNavigateUrlFields="Id"    
                   DataTextField="DisplayName" 
