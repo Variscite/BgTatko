@@ -14,12 +14,11 @@ namespace BgTatkoForum
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            this.ViewState["query"] = "Recent threads and posts";
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-
         }
 
         protected void LinkButtonThread_Command(object sender, CommandEventArgs e)
@@ -57,6 +56,8 @@ namespace BgTatkoForum
         protected void SortByDate_Command(object sender, CommandEventArgs e)
         {
             this.threads = this.threads.OrderByDescending(t => t.DateCreated);
+
+            this.ViewState["query"] = "Recent threads and posts";
             this.GridThreads.DataBind();
         }
 
@@ -65,12 +66,16 @@ namespace BgTatkoForum
             this.threads = this.threads
                 .OrderByDescending(t => t.ThreadVotes.Sum(v => v.Value))
                 .ThenByDescending(t => t.DateCreated);
+
+            this.ViewState["query"] = "Most voted threads";
             this.GridThreads.DataBind();
         }
 
         protected void SortByPosts_Command(object sender, CommandEventArgs e)
         {
             this.threads = this.threads.OrderByDescending(t => t.Posts.Count);
+
+            this.ViewState["query"] = "Most posted threads";
             this.GridThreads.DataBind();
         }
 
@@ -87,27 +92,34 @@ namespace BgTatkoForum
 
         private void Vote_Command(CommandEventArgs e, int value)
         {
-            var ids = e.CommandArgument.ToString().Split(',');
-            int threadId = Convert.ToInt32(ids[0]);
-            string userId = ids[1];
-            BgTatkoEntities context = new BgTatkoEntities();
+            try
+            {
+                var ids = e.CommandArgument.ToString().Split(',');
+                int threadId = Convert.ToInt32(ids[0]);
+                string userId = ids[1];
+                BgTatkoEntities context = new BgTatkoEntities();
 
-            var vote = context.ThreadVotes.FirstOrDefault(v => v.ThreadId == threadId && v.UserId == userId);
-            if (vote == null)
-            {
-                vote = new ThreadVote()
+                var vote = context.ThreadVotes.FirstOrDefault(v => v.ThreadId == threadId && v.UserId == userId);
+                if (vote == null)
                 {
-                    UserId = userId,
-                    ThreadId = threadId,
-                    Value = value
-                };
-                context.ThreadVotes.Add(vote);
-                context.SaveChanges();
-                this.GridThreads.DataBind();
+                    vote = new ThreadVote()
+                    {
+                        UserId = userId,
+                        ThreadId = threadId,
+                        Value = value
+                    };
+                    context.ThreadVotes.Add(vote);
+                    context.SaveChanges();
+                    this.GridThreads.DataBind();
+                }
+                else
+                {
+                    ErrorSuccessNotifier.AddInfoMessage("Users can vote once per Thread");
+                }
             }
-            else
+            catch (Exception)
             {
-                ErrorSuccessNotifier.AddInfoMessage("Users can vote once per Thread");
+                ErrorSuccessNotifier.AddWarningMessage("User must be logged in to vote");
             }
         }
 

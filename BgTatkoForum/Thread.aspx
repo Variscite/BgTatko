@@ -4,32 +4,43 @@
     <asp:FormView ID="FormViewThread" runat="server" ItemType="BgTatkoForum.Models.Thread">
         <ItemTemplate>
             <div class="thread-votes">
-                <asp:LinkButton runat="server"
-                    Text="<"
-                    CommandArgument="<%# Item.ThreadId.ToString() + ',' + Context.User.Identity.GetUserId() %>"
-                    OnCommand="VoteUp_Command"
-                    CssClass="vote-up" />
-                <asp:LinkButton runat="server"
-                    Text=">"
-                    CommandArgument="<%# Item.ThreadId.ToString() + ',' + Context.User.Identity.GetUserId() %>"
-                    OnCommand="VoteDown_Command"
-                    CssClass="vote-down" />
-                <%#: Item.ThreadVotes.Sum(v => v.Value) %>
-                            votes
+                <span class="vote-action">
+                    <asp:LinkButton runat="server"
+                        CommandArgument="<%# Item.ThreadId.ToString() + ',' + Context.User.Identity.GetUserId() %>"
+                        OnCommand="VoteUp_Command"
+                        CssClass="vote vote-up" />
+                    <asp:LinkButton runat="server"
+                        CommandArgument="<%# Item.ThreadId.ToString() + ',' + Context.User.Identity.GetUserId() %>"
+                        OnCommand="VoteDown_Command"
+                        CssClass="vote vote-down" /></span>
+                <div class="votes-results">
+                    <strong class="value">
+                        <%#:Item.ThreadVotes.Sum(v => v.Value)%>
+                    </strong>
+                    <div>votes</div>
+                </div>
             </div>
             <div class="thread-posts">
-                <%#: Item.Posts.Count %>
-                            posts
+                <div class="posts-num">
+                    <strong class="posts-num-value">
+                        <%#: Item.Posts.Count %>
+                    </strong>
+                    <div>
+                        posts
+                    </div>
+                </div>
             </div>
             <br />
-            <h2 id="ThreadTitle">Title: <%#:Item.Title %></h2>
-            <br />
-            <div id="ThreadContent">Content: <%#:Item.Content %></div>
+            <div class="thread-info">
+                <h2 id="ThreadTitle">Title: <%#:Item.Title %></h2>
+            </div>
+            <div id="ThreadContent" class="lead"> <%#:Item.Content %></div>
             <br />
         </ItemTemplate>
     </asp:FormView>
+
     <asp:LinkButton ID="LinkButtonCreateNewPost" runat="server"
-        Text="Create New Post"
+        Text="Create New Post" CssClass="btn btn-primary btn-mini"
         OnClick="LinkButtonCreateNewPost_Click" />
     <section id="sectionCreatePost" runat="server" visible="false">
         <h3>Fill new post info:</h3>
@@ -40,12 +51,13 @@
             runat="server"
             ErrorMessage="Post Content is Required!"
             ControlToValidate="TextBoxPostContent" />
-        <br />
-        <asp:LinkButton ID="LinkButtonSavePost" runat="server"
-            CommandArgument='<%# Request.Params["threadId"] %>'
-            Text="Save" OnCommand="LinkButtonSavePost_Click" />
-        <br />
-        <a href="<%# Request.Url %>">Cancel</a>
+        <div class="btn-group">
+            <asp:LinkButton ID="LinkButtonSavePost" runat="server"
+                CommandArgument='<%# Request.Params["threadId"] %>'
+                CssClass="btn btn-primary btn-mini"
+                Text="Save" OnCommand="LinkButtonSavePost_Click" />
+            <a class="btn btn-primary btn-mini" href="<%# Request.Url %>">Cancel</a>
+        </div>
         <asp:Literal ID="LiteralErrorMessage" runat="server" Visible="false" />
     </section>
     <section id="sectionCreateCommentForPost" runat="server" visible="false">
@@ -59,10 +71,12 @@
             ErrorMessage="Post Content is Required!"
             ControlToValidate="TextBoxCommentContent" />
         <br />
-        <asp:LinkButton ID="LinkButtonSaveComment" runat="server"
-            Text="Save" OnClick="LinkButtonSaveComment_Click" />
-        <br />
-        <a href="<%# Request.Url %>">Cancel</a>
+        <div class="btn-group">
+            <asp:LinkButton ID="LinkButtonSaveComment" runat="server"
+                CssClass="btn btn-primary btn-mini"
+                Text="Save" OnClick="LinkButtonSaveComment_Click" />
+            <a class="btn btn-primary btn-mini" href="<%# Request.Url %>">Cancel</a>
+        </div>
         <asp:Literal ID="Literal1" runat="server" Visible="false" />
     </section>
     <h3>Posts</h3>
@@ -76,7 +90,7 @@
                     <%#: "Posted By: " + Item.User.UserName %>
             </div>
             <asp:LinkButton ID="LinkButtonCreateNewComment" runat="server"
-                Text="Create New Comment"
+                Text="Create New Comment" CssClass="btn btn-primary btn-mini"
                 CommandArgument="<%# Item.PostId %>"
                 OnCommand="LinkButtonCreateNewComment_Command" />
             <asp:Repeater ID="RepeaterPostCommetns" runat="server"

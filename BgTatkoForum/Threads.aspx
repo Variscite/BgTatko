@@ -13,14 +13,17 @@
             <asp:TemplateField>
                 <HeaderStyle BorderStyle="None" />
                 <HeaderTemplate>
-                    <asp:LinkButton Text="By date" runat="server"
+                    <asp:LinkButton CssClass="btn btn-info"
+                        Text="By date" runat="server"
                         OnCommand="SortByDate_Command" />
-                    <asp:LinkButton Text="Most votes" runat="server"
+                    <asp:LinkButton CssClass="btn btn-info"
+                        Text="Most votes" runat="server"
                         OnCommand="SortByVotes_Command" />
-                    <asp:LinkButton Text="Most posts" runat="server"
+                    <asp:LinkButton CssClass="btn btn-info"
+                        Text="Most posts" runat="server"
                         OnCommand="SortByPosts_Command" />
                     <br />
-                    Recent threads and posts
+                    <h2><%#: ViewState["query"] %></h2>
                 </HeaderTemplate>
                 <ItemStyle BorderStyle="None" />
                 <ItemTemplate>
@@ -37,15 +40,21 @@
                                     CssClass="vote vote-down" />
                             </span>
                             <div class="votes-results">
-                                <div class="value">
+                                <strong class="value">
                                     <%#:Item.ThreadVotes.Sum(v => v.Value)%>
-                                </div>
+                                </strong>
                                 <div>votes</div>
                             </div>
                         </div>
                         <div class="thread-posts">
-                            <%#: Item.Posts.Count %>
-                            posts
+                            <div class="posts-num">
+                                <strong class="posts-num-value">
+                                    <%#: Item.Posts.Count %>
+                                </strong>
+                                <div>
+                                    posts
+                                </div>
+                            </div>
                         </div>
                         <div class="thread-info">
                             <asp:LinkButton ID="LinkButtonThread"
@@ -70,6 +79,7 @@
                                     <span class="tags">
                                         <asp:LinkButton runat="server"
                                             Text="<%#: Item.Name %>"
+                                            CssClass="badge badge-info"
                                             CommandArgument="<%# Item.TagId %>"
                                             OnCommand="SelectTag_Command" />
                                     </span>
@@ -82,44 +92,4 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-
-    <%--<asp:ListView ID="ListViewThreads" runat="server"
-        ItemType="BgTatkoForum.Models.Thread">
-        <LayoutTemplate>
-            <ul>
-                <asp:PlaceHolder runat="server"
-                    ID="itemPlaceholder" />
-            </ul>
-        </LayoutTemplate>
-        <ItemTemplate>
-            <div>
-                <div class="thread-votes">
-                    <%#: Item.ThreadVotes.Count %>
-                </div>
-                <div class="thread-posts">
-                    <%#: Item.Posts.Count %>
-                </div>
-                <div class="thread-info">
-                    <asp:LinkButton ID="LinkButtonThread" runat="server" 
-                        Text="<%#: Item.Title %>" 
-                        CommandArgument="<%#: Item.ThreadId %>" 
-                        OnCommand="LinkButtonThread_Command" />
-                    <h4></h4>
-                    <p><%#: Item.Category.Name %></p>
-                    <asp:Repeater ID="RepeaterTags" runat="server"
-                        ItemType="BgTatkoForum.Models.Tag">
-                        <ItemTemplate>
-                            <div class="tags">
-                                <%#: Item.Name %>
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
-
-                </div>
-            </div>
-        </ItemTemplate>
-        <EmptyDataTemplate>
-            No records found
-        </EmptyDataTemplate>
-    </asp:ListView>--%>
 </asp:Content>

@@ -32,14 +32,14 @@
 }
 
 .votes-results {
-    top: 20px;
+    top: 15px;
     right: 10px;
     position: absolute;
     text-align: center;
     display: inline-block;
 }
 
-.value {
+.value, .posts-num-value {
     font-size: 1.3rem;
 }
 
@@ -71,7 +71,17 @@
 }
 
 .thread-posts {
-    left: 105px;
+    position: absolute;
+    text-align: center;
+    display: inline-block;
+}
+
+.posts-num {
+    margin: 15px 0;
+}
+
+.thread-posts {
+    margin-left: 90px;
 }
 
 .thread-info {
@@ -81,4 +91,13 @@
 
     .thread-info > a {
         font-size: 1.3rem;
+    }
+
+td {
+    border-radius: 10px;
+    padding: 5px;
+}
+
+    td:hover {
+        box-shadow: #ddd 0 0 20px inset;
     }
